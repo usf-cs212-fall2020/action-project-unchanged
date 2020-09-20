@@ -1,0 +1,29 @@
+name: 'Check Project Unchanged'
+description: 'Github Action to to test that project release is unchanged compared to main branch.'
+
+inputs:
+  main_path:
+    required: true
+  release_number:
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+  - name: Check Project Unchanged
+    id: run-test-code
+    shell: bash
+    working-directory: ${{ inputs.main_path }}
+    run: |
+      echo "Comparing ${{ inputs.release_number }} to main branch..."
+
+      git fetch --unshallow --tags
+      git diff main...${{ inputs.release_number }} --exit-code
+
+      if [[ $? -eq 0 ]]; then
+        echo "The main branch and release ${{ inputs.release_number }} are even."
+        exit 0
+      fi
+
+      echo "::error ::Differences found between release ${{ inputs.release_number }} and the main branch."
+      exit 1
