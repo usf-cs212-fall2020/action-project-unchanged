@@ -1,5 +1,5 @@
 name: 'Check Project Unchanged'
-description: 'Github Action to to test that project release is unchanged compared to main branch.'
+description: 'Github Action to test that project release is unchanged compared to main branch.'
 
 inputs:
   main_path:
