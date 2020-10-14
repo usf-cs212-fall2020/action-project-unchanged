@@ -18,8 +18,8 @@ runs:
       echo "Comparing ${{ inputs.release_number }} to main branch..."
 
       git fetch --unshallow --tags
-      git diff --shortstat main ${{ inputs.release_number }}
-      git diff --exit-code --quiet main ${{ inputs.release_number }}
+      git diff --shortstat origin/main ${{ inputs.release_number }}
+      git diff --exit-code --quiet origin/main ${{ inputs.release_number }}
 
       if [[ $? -eq 0 ]]; then
         echo "The main branch and release ${{ inputs.release_number }} are even."
